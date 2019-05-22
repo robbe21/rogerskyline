@@ -14,10 +14,8 @@ sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/g' /etc/ssh/sshd_co
 
 #set fail2ban
 sh ./fail2ban.sh
+
 #set scripts
-                #chmod 777 update.sh
-                #chmod 777 checkcron.sh
-                #chmod 777 iptables.sh
 mv update.sh /etc/cron.d/
 mv checkcron.sh /etc/cron.d/
 #iptables run on startup (because it is not presistant)
@@ -27,5 +25,7 @@ echo "0 4 * * 0 /bin/sh /etc/cron.d/update.sh
 @reboot /bin/sh /etc/cron.d/update.sh
 0 0 * * * /bin/sh /etc/cron.d/checkcron.sh
 @reboot /bin/sh /etc/cron.d/iptables.sh" >> /var/spool/cron/crontabs/root
+
+sh ./apache2.sh
 
 reboot
